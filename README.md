@@ -101,7 +101,8 @@ On test completion, aggregated stats are sent to the Anthropic API. Claude's bot
 <img width="1280" height="915" alt="image" src="https://github.com/user-attachments/assets/3fbd1371-c55c-460c-b388-4277f15979b1" />
 
 ### Sequence Diagram
-<img width="2175" height="3791" alt="image" src="https://github.com/user-attachments/assets/741d9afb-6b64-4dc5-94e7-b908cc6f9a17" />
+<img width="991" height="1599" alt="image" src="https://github.com/user-attachments/assets/e67ce8f4-4974-483e-9afa-c1031b4b510a" />
+
 
 
 ---
@@ -293,7 +294,24 @@ apexload/
 ```
 
 ---
+## API Documentation & Testing
 
+### API Endpoints List with Postman Testing Screenshot 
+- /health
+- <img width="1453" height="827" alt="test2" src="https://github.com/user-attachments/assets/349b2953-2a83-4a70-8bb4-1d4d463a64e5" />
+- /configs
+- <img width="1453" height="827" alt="test3" src="https://github.com/user-attachments/assets/f2555144-edf0-4b73-97f1-8c0e7e9b8519" />
+- /results
+- <img width="1453" height="827" alt="test4" src="https://github.com/user-attachments/assets/df413363-23ee-4e70-80b3-a78e92fc4c72" />
+- /report
+- <img width="1453" height="827" alt="test5A" src="https://github.com/user-attachments/assets/de194472-63cf-4032-a032-4fd763b460ca" />
+- <img width="1453" height="827" alt="test5B" src="https://github.com/user-attachments/assets/f53d3b52-ba8c-4e18-823d-963c6ac77f0e" />
+- <img width="1453" height="827" alt="test5C" src="https://github.com/user-attachments/assets/d88cb83f-1b67-43a2-b3aa-12138fdf8fb4" />
+- /ai/parse-intent
+- <img width="1453" height="827" alt="test6A" src="https://github.com/user-attachments/assets/ec656fcb-e69c-462b-9b09-03739b60dfc2" />
+- /ai/analyze
+- <img width="1453" height="827" alt="test6B" src="https://github.com/user-attachments/assets/4389ed9a-90a7-4718-9e66-9f047d7ba4b9" />
+---
 ## Project Checkpoints
 
 ### Checkpoint 1: Research & Planning
@@ -430,6 +448,7 @@ Export the run as an HTML report via Electron's save dialog, or browse all past 
 - **Closes the diagnosis gap** — teams get actionable, plain-English bottleneck analysis instead of raw numbers, reducing the time from test results to fix.
 - **Keeps sensitive API traffic private** — local-first execution means internal endpoints, auth headers, and request payloads never leave the developer's machine.
 - **Accelerates pre-release confidence** — with a fast setup, real-time monitoring, and AI-guided insights, teams can integrate load testing into their regular development cycle rather than treating it as a late-stage or one-off exercise.
+
 
 
 
