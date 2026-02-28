@@ -1,2 +1,6 @@
 // ApexLoad Backend — Entry Point
-console.log('ApexLoad backend starting...');
+import { WSServer } from './api/ws-server';
+
+const WS_PORT = 8765;
+const server = new WSServer(WS_PORT);
+console.log('Backend ready. Connect via ws://localhost:' + WS_PORT);
