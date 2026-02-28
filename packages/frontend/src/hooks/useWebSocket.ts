@@ -63,6 +63,12 @@ export function useWebSocket() {
             case 'TEST_ERROR':
                 setStatus('error');
                 break;
+            case 'STATUS':
+                if (msg.payload.running === false && useTestStore.getState().status === 'running') {
+                    // Test finished or aborted while disconnected
+                    setStatus('completed');
+                }
+                break;
         }
     }
 
@@ -76,7 +82,11 @@ export function useWebSocket() {
         connect();
         return () => {
             clearTimeout(reconnectTimer.current);
-            wsRef.current?.close();
+            if (wsRef.current) {
+                // Prevents infinite reconnect loops on StrictMode unmount
+                wsRef.current.onclose = null;
+                wsRef.current.close();
+            }
         };
     }, [connect]);
 
