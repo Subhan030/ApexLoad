@@ -16,7 +16,7 @@ export class WSServer {
     private clients: Set<WebSocket> = new Set();
 
     constructor(port: number) {
-        this.wss = new WebSocketServer({ port });
+        this.wss = new WebSocketServer({ port, host: '0.0.0.0' });
         this.wss.on('connection', (ws) => this.handleConnection(ws));
         console.log(`[WS] Server listening on ws://localhost:${port}`);
     }

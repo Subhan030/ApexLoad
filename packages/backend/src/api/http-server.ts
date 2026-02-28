@@ -3,9 +3,15 @@ import { getConfigs, getResults } from '../db';
 import { analyzeBottleneck } from '../ai/analyst';
 import { parseTestIntent } from '../ai/intent-parser';
 import { AggregatedStats, LoadTestConfig } from '../types';
+import cors from '@fastify/cors';
 
 export async function createHttpServer(port: number) {
     const app = Fastify({ logger: false });
+
+    await app.register(cors, {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    });
 
     // Allow JSON bodies up to 1MB
     app.addContentTypeParser('application/json', { parseAs: 'string', bodyLimit: 1_048_576 }, (_, body, done) => {
@@ -87,7 +93,7 @@ export async function createHttpServer(port: number) {
         }
     });
 
-    await app.listen({ port, host: '127.0.0.1' });
+    await app.listen({ port, host: '0.0.0.0' });
     console.log(`[HTTP] REST API on http://localhost:${port}`);
     return app;
 }
