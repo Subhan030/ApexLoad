@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model TestConfig {
+  id         String       @id @default(uuid()) @db.VarChar(36)
+  name       String       @db.VarChar(255)
+  configJson Json         @map("config_json")
+  createdAt  DateTime     @default(now()) @map("created_at")
+  results    TestResult[]
+
+  @@map("test_configs")
+}
+
+model TestResult {
+  id        String    @id @default(uuid()) @db.VarChar(36)
+  configId  String    @map("config_id") @db.VarChar(36)
+  startedAt DateTime  @default(now()) @map("started_at")
+  endedAt   DateTime? @map("ended_at")
+  status    String    @db.VarChar(50)
+  statsJson Json?     @map("stats_json")
+  config    TestConfig @relation(fields: [configId], references: [id])
+
+  @@index([configId])
+  @@index([startedAt(sort: Desc)])
+  @@map("test_results")
+}

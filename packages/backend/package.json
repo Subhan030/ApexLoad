@@ -1,0 +1,40 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@prisma/adapter-mariadb": "^7.4.2",
+    "@prisma/client": "^7.4.2",
+    "@types/node": "^25.3.2",
+    "dotenv": "^17.3.1",
+    "fastify": "^5.7.4",
+    "handlebars": "^4.7.8",
+    "hdr-histogram-js": "^3.0.1",
+    "mysql2": "^3.18.2",
+    "openai": "^6.25.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "undici": "^7.22.0",
+    "uuid": "^13.0.0",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@types/handlebars": "^4.0.40",
+    "@types/ws": "^8.18.1",
+    "nodemon": "^3.1.14",
+    "prisma": "^7.4.2"
+  }
+}
