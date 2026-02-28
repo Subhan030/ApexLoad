@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* ─── Custom Theme (Tailwind v4 CSS-first config) ─────────────── */
+@theme {
+  --color-brand: #38bdf8;
+  --color-brand-dark: #0ea5e9;
+  --color-surface: #1e293b;
+  --color-surface-dark: #0f172a;
+  --color-surface-light: #334155;
+}
+
+body {
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin: 0;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1e293b; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
