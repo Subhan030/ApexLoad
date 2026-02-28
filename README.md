@@ -53,7 +53,7 @@ Three compounding problems make load testing harder than it should be:
 
 | Root Cause | ApexLoad's Approach |
 |------------|---------------------|
-| Setup Tax | Natural language test builder — describe the test, Claude configures it |
+| Setup Tax | Natural language test builder — describe the test, AI configures it |
 | Interpretation Gap | AI Bottleneck Analyst streams a plain-English diagnosis with ranked fix recommendations after every test |
 | Cloud Privacy | Fully local Electron app — API traffic never leaves the machine; only aggregated stats reach the Anthropic API |
 | Performance accuracy | `undici` load engine + HDR histograms for high-concurrency throughput and precise percentile tracking |
@@ -307,5 +307,6 @@ Export the run as an HTML report via Electron's save dialog, or browse all past 
 - **Closes the diagnosis gap** — teams get actionable, plain-English bottleneck analysis instead of raw numbers, reducing the time from test results to fix.
 - **Keeps sensitive API traffic private** — local-first execution means internal endpoints, auth headers, and request payloads never leave the developer's machine.
 - **Accelerates pre-release confidence** — with a fast setup, real-time monitoring, and AI-guided insights, teams can integrate load testing into their regular development cycle rather than treating it as a late-stage or one-off exercise.
+
 
 
