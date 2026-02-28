@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { AggregatedStats, LoadTestConfig, TestStatus, TimelinePoint, AIAnalysisResult } from '../types';
+import type { AggregatedStats, LoadTestConfig, TestStatus, TimelinePoint, AIAnalysisResult } from '../types';
 
 interface TestStore {
     // Connection

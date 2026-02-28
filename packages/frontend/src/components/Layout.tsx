@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useTestStore } from '../store/testStore';
 import { Activity, Wifi, WifiOff } from 'lucide-react';
 
@@ -43,8 +43,8 @@ export function Layout({ children, activeTab, onTabChange }: LayoutProps) {
                         key={tab.id}
                         onClick={() => onTabChange(tab.id)}
                         className={`px-4 py-1.5 text-sm rounded-md font-medium transition-all ${activeTab === tab.id
-                                ? 'bg-[#38bdf8] text-[#0f172a]'
-                                : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#1e293b]'
+                            ? 'bg-[#38bdf8] text-[#0f172a]'
+                            : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#1e293b]'
                             }`}
                     >
                         {tab.label}

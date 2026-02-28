@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useTestStore } from '../store/testStore';
-import { UseFormSetValue } from 'react-hook-form';
+import type { UseFormSetValue } from 'react-hook-form';
 
 const API_BASE = 'http://localhost:3000';
 
