@@ -27,12 +27,14 @@ export type AggregateTestConfig = {
 export type TestConfigMinAggregateOutputType = {
   id: string | null
   name: string | null
+  configJson: string | null
   createdAt: Date | null
 }
 
 export type TestConfigMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  configJson: string | null
   createdAt: Date | null
 }
 
@@ -48,12 +50,14 @@ export type TestConfigCountAggregateOutputType = {
 export type TestConfigMinAggregateInputType = {
   id?: true
   name?: true
+  configJson?: true
   createdAt?: true
 }
 
 export type TestConfigMaxAggregateInputType = {
   id?: true
   name?: true
+  configJson?: true
   createdAt?: true
 }
 
@@ -140,7 +144,7 @@ export type TestConfigGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type TestConfigGroupByOutputType = {
   id: string
   name: string
-  configJson: runtime.JsonValue
+  configJson: string
   createdAt: Date
   _count: TestConfigCountAggregateOutputType | null
   _min: TestConfigMinAggregateOutputType | null
@@ -168,7 +172,7 @@ export type TestConfigWhereInput = {
   NOT?: Prisma.TestConfigWhereInput | Prisma.TestConfigWhereInput[]
   id?: Prisma.StringFilter<"TestConfig"> | string
   name?: Prisma.StringFilter<"TestConfig"> | string
-  configJson?: Prisma.JsonFilter<"TestConfig">
+  configJson?: Prisma.StringFilter<"TestConfig"> | string
   createdAt?: Prisma.DateTimeFilter<"TestConfig"> | Date | string
   results?: Prisma.TestResultListRelationFilter
 }
@@ -179,7 +183,6 @@ export type TestConfigOrderByWithRelationInput = {
   configJson?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   results?: Prisma.TestResultOrderByRelationAggregateInput
-  _relevance?: Prisma.TestConfigOrderByRelevanceInput
 }
 
 export type TestConfigWhereUniqueInput = Prisma.AtLeast<{
@@ -188,7 +191,7 @@ export type TestConfigWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TestConfigWhereInput[]
   NOT?: Prisma.TestConfigWhereInput | Prisma.TestConfigWhereInput[]
   name?: Prisma.StringFilter<"TestConfig"> | string
-  configJson?: Prisma.JsonFilter<"TestConfig">
+  configJson?: Prisma.StringFilter<"TestConfig"> | string
   createdAt?: Prisma.DateTimeFilter<"TestConfig"> | Date | string
   results?: Prisma.TestResultListRelationFilter
 }, "id">
@@ -209,14 +212,14 @@ export type TestConfigScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TestConfigScalarWhereWithAggregatesInput | Prisma.TestConfigScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"TestConfig"> | string
   name?: Prisma.StringWithAggregatesFilter<"TestConfig"> | string
-  configJson?: Prisma.JsonWithAggregatesFilter<"TestConfig">
+  configJson?: Prisma.StringWithAggregatesFilter<"TestConfig"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TestConfig"> | Date | string
 }
 
 export type TestConfigCreateInput = {
   id?: string
   name: string
-  configJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson: string
   createdAt?: Date | string
   results?: Prisma.TestResultCreateNestedManyWithoutConfigInput
 }
@@ -224,7 +227,7 @@ export type TestConfigCreateInput = {
 export type TestConfigUncheckedCreateInput = {
   id?: string
   name: string
-  configJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson: string
   createdAt?: Date | string
   results?: Prisma.TestResultUncheckedCreateNestedManyWithoutConfigInput
 }
@@ -232,7 +235,7 @@ export type TestConfigUncheckedCreateInput = {
 export type TestConfigUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  configJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   results?: Prisma.TestResultUpdateManyWithoutConfigNestedInput
 }
@@ -240,7 +243,7 @@ export type TestConfigUpdateInput = {
 export type TestConfigUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  configJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   results?: Prisma.TestResultUncheckedUpdateManyWithoutConfigNestedInput
 }
@@ -248,28 +251,22 @@ export type TestConfigUncheckedUpdateInput = {
 export type TestConfigCreateManyInput = {
   id?: string
   name: string
-  configJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson: string
   createdAt?: Date | string
 }
 
 export type TestConfigUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  configJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestConfigUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  configJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type TestConfigOrderByRelevanceInput = {
-  fields: Prisma.TestConfigOrderByRelevanceFieldEnum | Prisma.TestConfigOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type TestConfigCountOrderByAggregateInput = {
@@ -282,12 +279,14 @@ export type TestConfigCountOrderByAggregateInput = {
 export type TestConfigMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  configJson?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type TestConfigMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  configJson?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -321,14 +320,14 @@ export type TestConfigUpdateOneRequiredWithoutResultsNestedInput = {
 export type TestConfigCreateWithoutResultsInput = {
   id?: string
   name: string
-  configJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson: string
   createdAt?: Date | string
 }
 
 export type TestConfigUncheckedCreateWithoutResultsInput = {
   id?: string
   name: string
-  configJson: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson: string
   createdAt?: Date | string
 }
 
@@ -351,14 +350,14 @@ export type TestConfigUpdateToOneWithWhereWithoutResultsInput = {
 export type TestConfigUpdateWithoutResultsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  configJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestConfigUncheckedUpdateWithoutResultsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  configJson?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  configJson?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -402,7 +401,19 @@ export type TestConfigSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   _count?: boolean | Prisma.TestConfigCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testConfig"]>
 
+export type TestConfigSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  name?: boolean
+  configJson?: boolean
+  createdAt?: boolean
+}, ExtArgs["result"]["testConfig"]>
 
+export type TestConfigSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  name?: boolean
+  configJson?: boolean
+  createdAt?: boolean
+}, ExtArgs["result"]["testConfig"]>
 
 export type TestConfigSelectScalar = {
   id?: boolean
@@ -416,6 +427,8 @@ export type TestConfigInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   results?: boolean | Prisma.TestConfig$resultsArgs<ExtArgs>
   _count?: boolean | Prisma.TestConfigCountOutputTypeDefaultArgs<ExtArgs>
 }
+export type TestConfigIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TestConfigIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $TestConfigPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TestConfig"
@@ -425,7 +438,7 @@ export type $TestConfigPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    configJson: runtime.JsonValue
+    configJson: string
     createdAt: Date
   }, ExtArgs["result"]["testConfig"]>
   composites: {}
@@ -545,6 +558,30 @@ export interface TestConfigDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends TestConfigCreateManyArgs>(args?: Prisma.SelectSubset<T, TestConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many TestConfigs and returns the data saved in the database.
+   * @param {TestConfigCreateManyAndReturnArgs} args - Arguments to create many TestConfigs.
+   * @example
+   * // Create many TestConfigs
+   * const testConfig = await prisma.testConfig.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many TestConfigs and only return the `id`
+   * const testConfigWithIdOnly = await prisma.testConfig.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends TestConfigCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, TestConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestConfigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a TestConfig.
    * @param {TestConfigDeleteArgs} args - Arguments to delete one TestConfig.
    * @example
@@ -607,6 +644,36 @@ export interface TestConfigDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends TestConfigUpdateManyArgs>(args: Prisma.SelectSubset<T, TestConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more TestConfigs and returns the data updated in the database.
+   * @param {TestConfigUpdateManyAndReturnArgs} args - Arguments to update many TestConfigs.
+   * @example
+   * // Update many TestConfigs
+   * const testConfig = await prisma.testConfig.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more TestConfigs and only return the `id`
+   * const testConfigWithIdOnly = await prisma.testConfig.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends TestConfigUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, TestConfigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestConfigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one TestConfig.
@@ -799,7 +866,7 @@ export interface Prisma__TestConfigClient<T, Null = never, ExtArgs extends runti
 export interface TestConfigFieldRefs {
   readonly id: Prisma.FieldRef<"TestConfig", 'String'>
   readonly name: Prisma.FieldRef<"TestConfig", 'String'>
-  readonly configJson: Prisma.FieldRef<"TestConfig", 'Json'>
+  readonly configJson: Prisma.FieldRef<"TestConfig", 'String'>
   readonly createdAt: Prisma.FieldRef<"TestConfig", 'DateTime'>
 }
     
@@ -1030,7 +1097,24 @@ export type TestConfigCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * The data used to create many TestConfigs.
    */
   data: Prisma.TestConfigCreateManyInput | Prisma.TestConfigCreateManyInput[]
-  skipDuplicates?: boolean
+}
+
+/**
+ * TestConfig createManyAndReturn
+ */
+export type TestConfigCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestConfig
+   */
+  select?: Prisma.TestConfigSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestConfig
+   */
+  omit?: Prisma.TestConfigOmit<ExtArgs> | null
+  /**
+   * The data used to create many TestConfigs.
+   */
+  data: Prisma.TestConfigCreateManyInput | Prisma.TestConfigCreateManyInput[]
 }
 
 /**
@@ -1063,6 +1147,32 @@ export type TestConfigUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
  * TestConfig updateMany
  */
 export type TestConfigUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * The data used to update TestConfigs.
+   */
+  data: Prisma.XOR<Prisma.TestConfigUpdateManyMutationInput, Prisma.TestConfigUncheckedUpdateManyInput>
+  /**
+   * Filter which TestConfigs to update
+   */
+  where?: Prisma.TestConfigWhereInput
+  /**
+   * Limit how many TestConfigs to update.
+   */
+  limit?: number
+}
+
+/**
+ * TestConfig updateManyAndReturn
+ */
+export type TestConfigUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestConfig
+   */
+  select?: Prisma.TestConfigSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestConfig
+   */
+  omit?: Prisma.TestConfigOmit<ExtArgs> | null
   /**
    * The data used to update TestConfigs.
    */

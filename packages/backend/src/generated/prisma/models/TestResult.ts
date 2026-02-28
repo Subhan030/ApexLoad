@@ -30,6 +30,7 @@ export type TestResultMinAggregateOutputType = {
   startedAt: Date | null
   endedAt: Date | null
   status: string | null
+  statsJson: string | null
 }
 
 export type TestResultMaxAggregateOutputType = {
@@ -38,6 +39,7 @@ export type TestResultMaxAggregateOutputType = {
   startedAt: Date | null
   endedAt: Date | null
   status: string | null
+  statsJson: string | null
 }
 
 export type TestResultCountAggregateOutputType = {
@@ -57,6 +59,7 @@ export type TestResultMinAggregateInputType = {
   startedAt?: true
   endedAt?: true
   status?: true
+  statsJson?: true
 }
 
 export type TestResultMaxAggregateInputType = {
@@ -65,6 +68,7 @@ export type TestResultMaxAggregateInputType = {
   startedAt?: true
   endedAt?: true
   status?: true
+  statsJson?: true
 }
 
 export type TestResultCountAggregateInputType = {
@@ -155,7 +159,7 @@ export type TestResultGroupByOutputType = {
   startedAt: Date
   endedAt: Date | null
   status: string
-  statsJson: runtime.JsonValue | null
+  statsJson: string | null
   _count: TestResultCountAggregateOutputType | null
   _min: TestResultMinAggregateOutputType | null
   _max: TestResultMaxAggregateOutputType | null
@@ -185,7 +189,7 @@ export type TestResultWhereInput = {
   startedAt?: Prisma.DateTimeFilter<"TestResult"> | Date | string
   endedAt?: Prisma.DateTimeNullableFilter<"TestResult"> | Date | string | null
   status?: Prisma.StringFilter<"TestResult"> | string
-  statsJson?: Prisma.JsonNullableFilter<"TestResult">
+  statsJson?: Prisma.StringNullableFilter<"TestResult"> | string | null
   config?: Prisma.XOR<Prisma.TestConfigScalarRelationFilter, Prisma.TestConfigWhereInput>
 }
 
@@ -197,7 +201,6 @@ export type TestResultOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   statsJson?: Prisma.SortOrderInput | Prisma.SortOrder
   config?: Prisma.TestConfigOrderByWithRelationInput
-  _relevance?: Prisma.TestResultOrderByRelevanceInput
 }
 
 export type TestResultWhereUniqueInput = Prisma.AtLeast<{
@@ -209,7 +212,7 @@ export type TestResultWhereUniqueInput = Prisma.AtLeast<{
   startedAt?: Prisma.DateTimeFilter<"TestResult"> | Date | string
   endedAt?: Prisma.DateTimeNullableFilter<"TestResult"> | Date | string | null
   status?: Prisma.StringFilter<"TestResult"> | string
-  statsJson?: Prisma.JsonNullableFilter<"TestResult">
+  statsJson?: Prisma.StringNullableFilter<"TestResult"> | string | null
   config?: Prisma.XOR<Prisma.TestConfigScalarRelationFilter, Prisma.TestConfigWhereInput>
 }, "id">
 
@@ -234,7 +237,7 @@ export type TestResultScalarWhereWithAggregatesInput = {
   startedAt?: Prisma.DateTimeWithAggregatesFilter<"TestResult"> | Date | string
   endedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TestResult"> | Date | string | null
   status?: Prisma.StringWithAggregatesFilter<"TestResult"> | string
-  statsJson?: Prisma.JsonNullableWithAggregatesFilter<"TestResult">
+  statsJson?: Prisma.StringNullableWithAggregatesFilter<"TestResult"> | string | null
 }
 
 export type TestResultCreateInput = {
@@ -242,7 +245,7 @@ export type TestResultCreateInput = {
   startedAt?: Date | string
   endedAt?: Date | string | null
   status: string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: string | null
   config: Prisma.TestConfigCreateNestedOneWithoutResultsInput
 }
 
@@ -252,7 +255,7 @@ export type TestResultUncheckedCreateInput = {
   startedAt?: Date | string
   endedAt?: Date | string | null
   status: string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: string | null
 }
 
 export type TestResultUpdateInput = {
@@ -260,7 +263,7 @@ export type TestResultUpdateInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   config?: Prisma.TestConfigUpdateOneRequiredWithoutResultsNestedInput
 }
 
@@ -270,7 +273,7 @@ export type TestResultUncheckedUpdateInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TestResultCreateManyInput = {
@@ -279,7 +282,7 @@ export type TestResultCreateManyInput = {
   startedAt?: Date | string
   endedAt?: Date | string | null
   status: string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: string | null
 }
 
 export type TestResultUpdateManyMutationInput = {
@@ -287,7 +290,7 @@ export type TestResultUpdateManyMutationInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TestResultUncheckedUpdateManyInput = {
@@ -296,7 +299,7 @@ export type TestResultUncheckedUpdateManyInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TestResultListRelationFilter = {
@@ -307,12 +310,6 @@ export type TestResultListRelationFilter = {
 
 export type TestResultOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type TestResultOrderByRelevanceInput = {
-  fields: Prisma.TestResultOrderByRelevanceFieldEnum | Prisma.TestResultOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type TestResultCountOrderByAggregateInput = {
@@ -330,6 +327,7 @@ export type TestResultMaxOrderByAggregateInput = {
   startedAt?: Prisma.SortOrder
   endedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  statsJson?: Prisma.SortOrder
 }
 
 export type TestResultMinOrderByAggregateInput = {
@@ -338,6 +336,7 @@ export type TestResultMinOrderByAggregateInput = {
   startedAt?: Prisma.SortOrder
   endedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  statsJson?: Prisma.SortOrder
 }
 
 export type TestResultCreateNestedManyWithoutConfigInput = {
@@ -386,12 +385,16 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type TestResultCreateWithoutConfigInput = {
   id?: string
   startedAt?: Date | string
   endedAt?: Date | string | null
   status: string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: string | null
 }
 
 export type TestResultUncheckedCreateWithoutConfigInput = {
@@ -399,7 +402,7 @@ export type TestResultUncheckedCreateWithoutConfigInput = {
   startedAt?: Date | string
   endedAt?: Date | string | null
   status: string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: string | null
 }
 
 export type TestResultCreateOrConnectWithoutConfigInput = {
@@ -409,7 +412,6 @@ export type TestResultCreateOrConnectWithoutConfigInput = {
 
 export type TestResultCreateManyConfigInputEnvelope = {
   data: Prisma.TestResultCreateManyConfigInput | Prisma.TestResultCreateManyConfigInput[]
-  skipDuplicates?: boolean
 }
 
 export type TestResultUpsertWithWhereUniqueWithoutConfigInput = {
@@ -437,7 +439,7 @@ export type TestResultScalarWhereInput = {
   startedAt?: Prisma.DateTimeFilter<"TestResult"> | Date | string
   endedAt?: Prisma.DateTimeNullableFilter<"TestResult"> | Date | string | null
   status?: Prisma.StringFilter<"TestResult"> | string
-  statsJson?: Prisma.JsonNullableFilter<"TestResult">
+  statsJson?: Prisma.StringNullableFilter<"TestResult"> | string | null
 }
 
 export type TestResultCreateManyConfigInput = {
@@ -445,7 +447,7 @@ export type TestResultCreateManyConfigInput = {
   startedAt?: Date | string
   endedAt?: Date | string | null
   status: string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: string | null
 }
 
 export type TestResultUpdateWithoutConfigInput = {
@@ -453,7 +455,7 @@ export type TestResultUpdateWithoutConfigInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TestResultUncheckedUpdateWithoutConfigInput = {
@@ -461,7 +463,7 @@ export type TestResultUncheckedUpdateWithoutConfigInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TestResultUncheckedUpdateManyWithoutConfigInput = {
@@ -469,7 +471,7 @@ export type TestResultUncheckedUpdateManyWithoutConfigInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  statsJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  statsJson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -484,7 +486,25 @@ export type TestResultSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   config?: boolean | Prisma.TestConfigDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testResult"]>
 
+export type TestResultSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  configId?: boolean
+  startedAt?: boolean
+  endedAt?: boolean
+  status?: boolean
+  statsJson?: boolean
+  config?: boolean | Prisma.TestConfigDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["testResult"]>
 
+export type TestResultSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  configId?: boolean
+  startedAt?: boolean
+  endedAt?: boolean
+  status?: boolean
+  statsJson?: boolean
+  config?: boolean | Prisma.TestConfigDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["testResult"]>
 
 export type TestResultSelectScalar = {
   id?: boolean
@@ -499,6 +519,12 @@ export type TestResultOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type TestResultInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   config?: boolean | Prisma.TestConfigDefaultArgs<ExtArgs>
 }
+export type TestResultIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  config?: boolean | Prisma.TestConfigDefaultArgs<ExtArgs>
+}
+export type TestResultIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  config?: boolean | Prisma.TestConfigDefaultArgs<ExtArgs>
+}
 
 export type $TestResultPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TestResult"
@@ -511,7 +537,7 @@ export type $TestResultPayload<ExtArgs extends runtime.Types.Extensions.Internal
     startedAt: Date
     endedAt: Date | null
     status: string
-    statsJson: runtime.JsonValue | null
+    statsJson: string | null
   }, ExtArgs["result"]["testResult"]>
   composites: {}
 }
@@ -630,6 +656,30 @@ export interface TestResultDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends TestResultCreateManyArgs>(args?: Prisma.SelectSubset<T, TestResultCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many TestResults and returns the data saved in the database.
+   * @param {TestResultCreateManyAndReturnArgs} args - Arguments to create many TestResults.
+   * @example
+   * // Create many TestResults
+   * const testResult = await prisma.testResult.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many TestResults and only return the `id`
+   * const testResultWithIdOnly = await prisma.testResult.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends TestResultCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, TestResultCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestResultPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a TestResult.
    * @param {TestResultDeleteArgs} args - Arguments to delete one TestResult.
    * @example
@@ -692,6 +742,36 @@ export interface TestResultDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends TestResultUpdateManyArgs>(args: Prisma.SelectSubset<T, TestResultUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more TestResults and returns the data updated in the database.
+   * @param {TestResultUpdateManyAndReturnArgs} args - Arguments to update many TestResults.
+   * @example
+   * // Update many TestResults
+   * const testResult = await prisma.testResult.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more TestResults and only return the `id`
+   * const testResultWithIdOnly = await prisma.testResult.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends TestResultUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, TestResultUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestResultPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one TestResult.
@@ -887,7 +967,7 @@ export interface TestResultFieldRefs {
   readonly startedAt: Prisma.FieldRef<"TestResult", 'DateTime'>
   readonly endedAt: Prisma.FieldRef<"TestResult", 'DateTime'>
   readonly status: Prisma.FieldRef<"TestResult", 'String'>
-  readonly statsJson: Prisma.FieldRef<"TestResult", 'Json'>
+  readonly statsJson: Prisma.FieldRef<"TestResult", 'String'>
 }
     
 
@@ -1117,7 +1197,28 @@ export type TestResultCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * The data used to create many TestResults.
    */
   data: Prisma.TestResultCreateManyInput | Prisma.TestResultCreateManyInput[]
-  skipDuplicates?: boolean
+}
+
+/**
+ * TestResult createManyAndReturn
+ */
+export type TestResultCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestResult
+   */
+  select?: Prisma.TestResultSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestResult
+   */
+  omit?: Prisma.TestResultOmit<ExtArgs> | null
+  /**
+   * The data used to create many TestResults.
+   */
+  data: Prisma.TestResultCreateManyInput | Prisma.TestResultCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestResultIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1162,6 +1263,36 @@ export type TestResultUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many TestResults to update.
    */
   limit?: number
+}
+
+/**
+ * TestResult updateManyAndReturn
+ */
+export type TestResultUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TestResult
+   */
+  select?: Prisma.TestResultSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the TestResult
+   */
+  omit?: Prisma.TestResultOmit<ExtArgs> | null
+  /**
+   * The data used to update TestResults.
+   */
+  data: Prisma.XOR<Prisma.TestResultUpdateManyMutationInput, Prisma.TestResultUncheckedUpdateManyInput>
+  /**
+   * Filter which TestResults to update
+   */
+  where?: Prisma.TestResultWhereInput
+  /**
+   * Limit how many TestResults to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestResultIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

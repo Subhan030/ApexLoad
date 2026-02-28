@@ -4,13 +4,13 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
 }
 
 model TestConfig {
-  id         String       @id @default(uuid()) @db.VarChar(36)
-  name       String       @db.VarChar(255)
-  configJson Json         @map("config_json")
+  id         String       @id @default(uuid())
+  name       String
+  configJson String       @map("config_json")
   createdAt  DateTime     @default(now()) @map("created_at")
   results    TestResult[]
 
@@ -18,12 +18,12 @@ model TestConfig {
 }
 
 model TestResult {
-  id        String    @id @default(uuid()) @db.VarChar(36)
-  configId  String    @map("config_id") @db.VarChar(36)
+  id        String    @id @default(uuid())
+  configId  String    @map("config_id")
   startedAt DateTime  @default(now()) @map("started_at")
   endedAt   DateTime? @map("ended_at")
-  status    String    @db.VarChar(50)
-  statsJson Json?     @map("stats_json")
+  status    String
+  statsJson String?   @map("stats_json")
   config    TestConfig @relation(fields: [configId], references: [id])
 
   @@index([configId])
