@@ -5,10 +5,13 @@ import { useTestStore } from './store/testStore';
 import { Layout } from './components/Layout';
 import { ConfigForm } from './components/ConfigForm';
 import { StatsGrid } from './components/StatsGrid';
+import { LatencyChart } from './components/charts/LatencyChart';
+import { ThroughputChart } from './components/charts/ThroughputChart';
+import { PercentileChart } from './components/charts/PercentileChart';
 
 function App() {
   const { send } = useWebSocket();
-  const { stats } = useTestStore();
+  const { stats, liveTimeline } = useTestStore();
   const [activeTab, setActiveTab] = useState('configure');
 
   return (
@@ -18,7 +21,16 @@ function App() {
       {activeTab === 'monitor' && (
         <div className="max-w-6xl mx-auto">
           {stats ? (
-            <StatsGrid stats={stats} />
+            <>
+              <StatsGrid stats={stats} />
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <LatencyChart data={liveTimeline} />
+                <ThroughputChart data={liveTimeline} />
+              </div>
+              <div className="mt-4">
+                <PercentileChart stats={stats} />
+              </div>
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center h-64 text-[#475569]">
               <p className="text-lg font-medium">No test data yet</p>
