@@ -1,4 +1,3 @@
-// ApexLoad Backend — Entry Point
 import 'dotenv/config';
 import { WSServer } from './api/ws-server';
 import { createHttpServer } from './api/http-server';
@@ -6,10 +5,27 @@ import { createHttpServer } from './api/http-server';
 const WS_PORT = 8765;
 const HTTP_PORT = 3000;
 
-const wsServer = new WSServer(WS_PORT);
-console.log('Backend ready. Connect via ws://localhost:' + WS_PORT);
+async function main() {
+    // Prisma auto-connects on first query — no manual init needed
 
-createHttpServer(HTTP_PORT).catch((err) => {
-    console.error('[HTTP] Failed to start:', err);
+    await createHttpServer(HTTP_PORT);
+    new WSServer(WS_PORT);
+
+    const aiEnabled = !!process.env.OPENROUTER_API_KEY;
+
+    console.log('');
+    console.log('🚀 ApexLoad Backend Ready');
+    console.log(`   REST API  → http://localhost:${HTTP_PORT}`);
+    console.log(`   WebSocket → ws://localhost:${WS_PORT}`);
+    console.log(`   AI Engine → ${aiEnabled ? '✅ Enabled (OpenRouter — anthropic/claude-sonnet-4-20250514)' : '⚠️  Disabled (set OPENROUTER_API_KEY)'}`);
+    if (aiEnabled) {
+        console.log(`     POST /ai/parse-intent  — Natural Language Test Builder`);
+        console.log(`     POST /ai/analyze       — Streaming Bottleneck Analyst`);
+    }
+    console.log('');
+}
+
+main().catch(err => {
+    console.error('Fatal error:', err);
     process.exit(1);
 });
