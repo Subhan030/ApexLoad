@@ -50,7 +50,7 @@ export async function parseTestIntent(userPrompt: string): Promise<ParsedTestCon
     const sanitized = userPrompt.trim().slice(0, 500); // Cap at 500 chars
 
     const response = await client.chat.completions.create({
-        model: 'anthropic/claude-sonnet-4-20250514',
+        model: 'anthropic/claude-sonnet-4',
         max_tokens: 500,
         messages: [
             { role: 'system', content: PARSER_SYSTEM_PROMPT },

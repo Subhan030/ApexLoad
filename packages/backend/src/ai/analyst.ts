@@ -88,7 +88,7 @@ ${stats.timeline.length > 10 ? `  ... and ${stats.timeline.length - 10} more sec
 
     // Use streaming so the frontend can show typing effect in real time
     const stream = await client.chat.completions.create({
-        model: 'anthropic/claude-sonnet-4-20250514',
+        model: 'anthropic/claude-sonnet-4',
         max_tokens: 1000,
         stream: true,
         messages: [
