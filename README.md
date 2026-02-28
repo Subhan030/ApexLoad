@@ -170,6 +170,129 @@ One config can have many results, forming a one-to-many relationship. This allow
 | GitHub Actions | CI/CD pipeline for testing and builds |
 
 ---
+```
+apexload/
+├── package.json                          # Root monorepo scripts (build:all, test:all, package:*)
+├── .gitignore
+│
+├── scripts/
+│   └── validate.sh                       # Pre-submission validation script
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml                        # GitHub Actions CI/CD pipeline
+│
+├── packages/
+│   ├── backend/
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── .env                          # ANTHROPIC_API_KEY (gitignored)
+│   │   ├── apexload.db                   # SQLite database (gitignored, auto-created)
+│   │   │
+│   │   └── src/
+│   │       ├── index.ts                  # Main entry point (dotenv, HTTP + WS servers)
+│   │       │
+│   │       ├── types/
+│   │       │   └── index.ts              # Core types: LoadTestConfig, RequestResult, AggregatedStats, AIAnalysisResult, ParsedTestConfig, etc.
+│   │       │
+│   │       ├── db/
+│   │       │   ├── index.ts              # SQLite layer (better-sqlite3): saveConfig, getConfigs, saveResult, getResults
+│   │       │   └── __tests__/
+│   │       │       └── db.test.ts         # DB unit tests
+│   │       │
+│   │       ├── engine/
+│   │       │   ├── worker.ts             # LoadWorker — single concurrent request loop (undici)
+│   │       │   └── orchestrator.ts       # LoadEngine — concurrency orchestrator with ramp-up
+│   │       │
+│   │       ├── stats/
+│   │       │   ├── histogram.ts          # StatsCollector — HDR histogram percentile tracking
+│   │       │   └── __tests__/
+│   │       │       └── histogram.test.ts  # Stats unit tests
+│   │       │
+│   │       ├── reporter/
+│   │       │   ├── index.ts              # HTML report generator (Handlebars + Chart.js)
+│   │       │   └── __tests__/
+│   │       │       └── reporter.test.ts   # Reporter unit tests
+│   │       │
+│   │       ├── api/
+│   │       │   ├── http-server.ts        # Fastify REST API (/health, /configs, /results, /report, /ai/parse-intent, /ai/analyze)
+│   │       │   └── ws-server.ts          # WebSocket server (real-time test control & stats streaming)
+│   │       │
+│   │       ├── ai/
+│   │       │   ├── analyst.ts            # AI Bottleneck Analyst — streaming analysis via Claude
+│   │       │   ├── intent-parser.ts      # Natural Language Test Builder — parse user intent via Claude
+│   │       │   └── __tests__/
+│   │       │       ├── analyst.test.ts    # Analyst unit tests (mocked Anthropic SDK)
+│   │       │       └── intent-parser.test.ts # Intent parser unit tests (mocked Anthropic SDK)
+│   │       │
+│   │       ├── utils/                    # Utility functions
+│   │       │
+│   │       └── __tests__/
+│   │           ├── mocks/
+│   │           │   └── anthropic.ts      # Shared Anthropic SDK mock
+│   │           ├── integration/
+│   │           │   ├── http.test.ts       # HTTP API integration tests (supertest)
+│   │           │   ├── websocket.test.ts  # WebSocket integration tests
+│   │           │   ├── engine.test.ts     # Engine smoke tests (real HTTP)
+│   │           │   └── ai-endpoints.test.ts # AI endpoint integration tests
+│   │           └── benchmark.ts          # Self-benchmarking harness
+│   │
+│   └── frontend/
+│       ├── package.json
+│       ├── tsconfig.json
+│       ├── vite.config.ts                # Vite config (+ test config for Vitest)
+│       ├── tailwind.config.js            # Tailwind CSS config (brand colors, surface palette)
+│       ├── postcss.config.js
+│       ├── index.html
+│       ├── electron-builder.yml          # Desktop packaging config (macOS, Windows, Linux)
+│       │
+│       ├── public/
+│       │   ├── icon.png                  # App icon (PNG)
+│       │   ├── icon.icns                 # App icon (macOS)
+│       │   └── icon.ico                  # App icon (Windows)
+│       │
+│       ├── electron/
+│       │   ├── main.ts                   # Electron main process (window, backend spawn, IPC)
+│       │   └── preload.ts               # Electron preload (contextBridge: openReport, saveReport)
+│       │
+│       ├── e2e/
+│       │   └── app.spec.ts              # Playwright E2E tests (Electron app)
+│       │
+│       └── src/
+│           ├── index.css                 # Global styles (Tailwind base, scrollbar, dark theme)
+│           ├── main.tsx                  # React entry point
+│           ├── App.tsx                   # Main app — tab routing, WebSocket init
+│           ├── types.ts                  # Frontend type definitions (mirrors backend types)
+│           │
+│           ├── store/
+│           │   └── testStore.ts          # Zustand global store (test state, AI state, timeline)
+│           │
+│           ├── hooks/
+│           │   ├── useWebSocket.ts       # WebSocket connection hook (auto-reconnect, message handling)
+│           │   └── useNLBuilder.ts       # 🤖 Natural Language Builder hook (calls /ai/parse-intent, fills form)
+│           │
+│           ├── components/
+│           │   ├── Layout.tsx            # App shell (titlebar, tab nav, connection indicator)
+│           │   ├── ConfigForm.tsx        # Test config form (Zod validation, NL Builder panel)
+│           │   ├── StatsGrid.tsx         # 8 stat cards (requests, throughput, error rate, percentiles)
+│           │   ├── AIAnalystPanel.tsx     # 🤖 AI Bottleneck Analyst (SSE streaming, severity badge, issues/suggestions)
+│           │   │
+│           │   └── charts/
+│           │       ├── LatencyChart.tsx   # P50/P95 latency timeline (Recharts LineChart)
+│           │       ├── ThroughputChart.tsx # Throughput area chart (Recharts AreaChart)
+│           │       └── PercentileChart.tsx # Percentile distribution bar chart (Recharts BarChart)
+│           │
+│           ├── pages/
+│           │   ├── MonitorPage.tsx        # Live dashboard (stats + 3 charts, real-time updates)
+│           │   ├── ResultsPage.tsx        # Post-test results (AI panel + stats + charts + export)
+│           │   └── HistoryPage.tsx        # Past test runs (fetched from /results API)
+│           │
+│           └── __tests__/
+│               ├── setup.ts              # Test setup (@testing-library/jest-dom)
+│               └── store.test.ts         # Zustand store unit tests (including AI state)
+```
+
+---
 
 ## Project Checkpoints
 
@@ -307,6 +430,7 @@ Export the run as an HTML report via Electron's save dialog, or browse all past 
 - **Closes the diagnosis gap** — teams get actionable, plain-English bottleneck analysis instead of raw numbers, reducing the time from test results to fix.
 - **Keeps sensitive API traffic private** — local-first execution means internal endpoints, auth headers, and request payloads never leave the developer's machine.
 - **Accelerates pre-release confidence** — with a fast setup, real-time monitoring, and AI-guided insights, teams can integrate load testing into their regular development cycle rather than treating it as a late-stage or one-off exercise.
+
 
 
 
