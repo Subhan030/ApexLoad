@@ -1,4 +1,5 @@
 // ApexLoad Backend — Entry Point
+import 'dotenv/config';
 import { WSServer } from './api/ws-server';
 import { createHttpServer } from './api/http-server';
 
