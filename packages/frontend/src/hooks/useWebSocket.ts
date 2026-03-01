@@ -5,7 +5,7 @@ const WS_URL = 'ws://localhost:8765';
 
 export function useWebSocket() {
     const wsRef = useRef<WebSocket | null>(null);
-    const reconnectTimer = useRef<ReturnType<typeof setTimeout>>();
+    const reconnectTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const { setConnected } = useTestStore();
 
     const connect = useCallback(() => {
@@ -16,7 +16,7 @@ export function useWebSocket() {
 
         ws.onopen = () => {
             setConnected(true);
-            clearTimeout(reconnectTimer.current);
+            if (reconnectTimer.current) clearTimeout(reconnectTimer.current);
             ws.send(JSON.stringify({ type: 'GET_STATUS' }));
         };
 
@@ -81,7 +81,7 @@ export function useWebSocket() {
     useEffect(() => {
         connect();
         return () => {
-            clearTimeout(reconnectTimer.current);
+            if (reconnectTimer.current) clearTimeout(reconnectTimer.current);
             if (wsRef.current) {
                 // Prevents infinite reconnect loops on StrictMode unmount
                 wsRef.current.onclose = null;

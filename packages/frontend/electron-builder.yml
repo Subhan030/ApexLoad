@@ -1,0 +1,47 @@
+appId: com.apexload.app
+productName: ApexLoad
+copyright: Copyright © 2025 ApexLoad
+
+directories:
+  output: release
+  buildResources: public
+
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - node_modules/**/*
+  - package.json
+
+extraResources:
+  - from: ../../packages/backend/dist
+    to: backend/dist
+  - from: ../../packages/backend/node_modules
+    to: backend/node_modules
+
+mac:
+  category: public.app-category.developer-tools
+  icon: public/icon.png
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+
+dmg:
+  title: ApexLoad
+  backgroundColor: "#0f172a"
+
+win:
+  icon: public/icon.png
+  target:
+    - target: nsis
+      arch: [x64]
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+
+linux:
+  icon: public/icon.png
+  category: Development
+  target:
+    - target: AppImage
+      arch: [x64]
