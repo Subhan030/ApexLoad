@@ -19,7 +19,7 @@ async function main() {
     console.log('🚀 ApexLoad Backend Ready');
     console.log(`   REST API  → http://localhost:${HTTP_PORT}`);
     console.log(`   WebSocket → ws://localhost:${WS_PORT}`);
-    console.log(`   AI Engine → ${aiEnabled ? '✅ Enabled (OpenRouter — anthropic/claude-sonnet-4)' : '⚠️  Disabled (set OPENROUTER_API_KEY)'}`);
+    console.log(`   AI Engine → ${aiEnabled ? '✅ Enabled (OpenRouter — anthropic/claude-3.5-sonnet)' : '⚠️  Disabled (set OPENROUTER_API_KEY)'}`);
     if (aiEnabled) {
         console.log(`     POST /ai/parse-intent  — Natural Language Test Builder`);
         console.log(`     POST /ai/analyze       — Streaming Bottleneck Analyst`);

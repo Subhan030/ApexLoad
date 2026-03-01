@@ -19,6 +19,8 @@ extraResources:
     to: backend/node_modules
   - from: ../../packages/backend/prisma
     to: backend/prisma
+  - from: ../../packages/backend/.env
+    to: backend/.env
 
 mac:
   category: public.app-category.developer-tools
