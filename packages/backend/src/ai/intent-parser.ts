@@ -1,10 +1,17 @@
 import OpenAI from 'openai';
 import { ParsedTestConfig } from '../types';
 
-const client = new OpenAI({
-    baseURL: 'https://openrouter.ai/api/v1',
-    apiKey: process.env.OPENROUTER_API_KEY,
-});
+// Lazy-initialize — OpenAI SDK throws at construction if no API key is set
+let _client: OpenAI | null = null;
+function getClient(): OpenAI {
+    if (!_client) {
+        _client = new OpenAI({
+            baseURL: 'https://openrouter.ai/api/v1',
+            apiKey: process.env.OPENROUTER_API_KEY,
+        });
+    }
+    return _client;
+}
 
 // System prompt engineered for consistent JSON output.
 // Few-shot examples teach the LLM the exact format expected.
@@ -49,7 +56,7 @@ export async function parseTestIntent(userPrompt: string): Promise<ParsedTestCon
     // Trim and sanitize input
     const sanitized = userPrompt.trim().slice(0, 500); // Cap at 500 chars
 
-    const response = await client.chat.completions.create({
+    const response = await getClient().chat.completions.create({
         model: 'anthropic/claude-sonnet-4',
         max_tokens: 500,
         messages: [

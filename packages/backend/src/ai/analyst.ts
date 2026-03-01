@@ -1,10 +1,17 @@
 import OpenAI from 'openai';
 import { AggregatedStats, LoadTestConfig, AIAnalysisResult } from '../types';
 
-const client = new OpenAI({
-    baseURL: 'https://openrouter.ai/api/v1',
-    apiKey: process.env.OPENROUTER_API_KEY,
-});
+// Lazy-initialize — OpenAI SDK throws at construction if no API key is set
+let _client: OpenAI | null = null;
+function getClient(): OpenAI {
+    if (!_client) {
+        _client = new OpenAI({
+            baseURL: 'https://openrouter.ai/api/v1',
+            apiKey: process.env.OPENROUTER_API_KEY,
+        });
+    }
+    return _client;
+}
 
 // The system prompt is carefully engineered:
 // - Forces structured output for easy frontend rendering
@@ -87,7 +94,7 @@ ${stats.timeline.length > 10 ? `  ... and ${stats.timeline.length - 10} more sec
     let fullText = '';
 
     // Use streaming so the frontend can show typing effect in real time
-    const stream = await client.chat.completions.create({
+    const stream = await getClient().chat.completions.create({
         model: 'anthropic/claude-sonnet-4',
         max_tokens: 1000,
         stream: true,
