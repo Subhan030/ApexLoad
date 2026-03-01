@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import Database from 'better-sqlite3';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import { PrismaClient } from '../generated/prisma/client';
 import { LoadTestConfig, AggregatedStats } from '../types';
@@ -13,6 +14,40 @@ const adapter = new PrismaBetterSqlite3({ url: dbPath });
 const prisma = new PrismaClient({ adapter });
 
 export { prisma };
+
+/**
+ * Ensures database tables exist. This is needed for the packaged Electron app
+ * where `prisma migrate` cannot be run. Uses raw SQLite via better-sqlite3
+ * to create tables with IF NOT EXISTS — safe to call on every startup.
+ */
+export function initializeDatabase(): void {
+    const db = new Database(dbPath);
+
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS test_configs (
+            id TEXT PRIMARY KEY NOT NULL,
+            name TEXT NOT NULL,
+            config_json TEXT NOT NULL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
+
+        CREATE TABLE IF NOT EXISTS test_results (
+            id TEXT PRIMARY KEY NOT NULL,
+            config_id TEXT NOT NULL,
+            started_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            ended_at DATETIME,
+            status TEXT NOT NULL,
+            stats_json TEXT,
+            FOREIGN KEY (config_id) REFERENCES test_configs(id)
+        );
+
+        CREATE INDEX IF NOT EXISTS test_results_config_id_idx ON test_results(config_id);
+        CREATE INDEX IF NOT EXISTS test_results_started_at_idx ON test_results(started_at DESC);
+    `);
+
+    db.close();
+    console.log('[DB] Database tables verified/created at:', dbPath);
+}
 
 export async function saveConfig(id: string, name: string, config: LoadTestConfig): Promise<void> {
     await prisma.testConfig.upsert({
