@@ -391,9 +391,10 @@ Export the run as an HTML report via Electron's save dialog, or browse all past 
 ---
 ## Demo & Video
 
-- Live Demo Link:
-- Demo Video Link:
-- GitHub Repository:
+- Live Demo Link: https://drive.google.com/file/d/1A5KHqkpnqVPQvqBYRpMyFDxDaaodC1O2/view?usp=sharing
+- Demo Video Link: https://drive.google.com/file/d/1aM4_4vFoQjqOeocHhEqgW2HY0UFZypPd/view?usp=sharing
+- GitHub Repository: https://github.com/HirdyanshKumar/ApexLoad
+- PPT Link: https://docs.google.com/presentation/d/13x3DHzNhdU9jqUc1xS-g5H6PtHNzI-aj/edit?usp=sharing&ouid=102378410138069245697&rtpof=true&sd=true
 ---
 ## Hackathon Deliverables Summary
 
@@ -409,8 +410,8 @@ Export the run as an HTML report via Electron's save dialog, or browse all past 
 | Member | Role | Responsibilities |
 |--------|------|-----------------|
 | Himanshu Mishra | Backend Engineer | Load engine (`undici` workers, concurrency orchestrator, ramp-up logic), HDR histogram stats engine, WebSocket server, Fastify REST API, SQLite persistence, HTML report generation |
-| Hirdyansh Kumar | Frontend Engineer | Electron app setup, React UI and dark theme, live stats dashboard (metric cards and charts), config form, Natural Language Builder panel, AI Bottleneck Analyst streaming UI, history page and report export |
-| Subhan Kumar Rai | AI & DevOps Engineer | AI API integration (NL intent parser and bottleneck analyst), SSE streaming pipeline, AI state management, testing suite (unit, integration, E2E), CI/CD pipeline, cross-platform packaging and deployment |
+| Shuban Kumar Rai | Frontend Engineer | Electron app setup, React UI and dark theme, live stats dashboard (metric cards and charts), config form, Natural Language Builder panel, AI Bottleneck Analyst streaming UI, history page and report export |
+| Hirdyansh Kumar| AI & DevOps Engineer | AI API integration (NL intent parser and bottleneck analyst), AI state management, testing suite, cross-platform packaging and deployment , Full Stack , Database |
 
 ---
 
@@ -448,6 +449,7 @@ Export the run as an HTML report via Electron's save dialog, or browse all past 
 - **Closes the diagnosis gap** — teams get actionable, plain-English bottleneck analysis instead of raw numbers, reducing the time from test results to fix.
 - **Keeps sensitive API traffic private** — local-first execution means internal endpoints, auth headers, and request payloads never leave the developer's machine.
 - **Accelerates pre-release confidence** — with a fast setup, real-time monitoring, and AI-guided insights, teams can integrate load testing into their regular development cycle rather than treating it as a late-stage or one-off exercise.
+
 
 
 
